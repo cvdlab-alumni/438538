@@ -1,3 +1,4 @@
+from pyplasm import *
 BLU= (Color4f([0.94,0.97,1,1]))
 perimetro_x = QUOTE([33])
 perimetro_y = QUOTE([33])
@@ -75,3 +76,4 @@ floor1_2P5D = T(3)(4.125)(floor1)
 floor2_2P5D = T(3)(8.25)(floor2)
 floor3_2P5D = T(3)(12.375)(floor3)
 two_and_half_model = STRUCT([floor0,floor1_2P5D,floor2_2P5D,floor3_2P5D])
+VIEW(two_and_half_model)

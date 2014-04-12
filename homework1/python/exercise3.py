@@ -1,3 +1,4 @@
+from pyplasm import *
 SILVER = Color4f([0.75,0.75,0.75,1])
 BLU= (Color4f([0.94,0.97,1,1]))
 superficie_x = QUOTE([33])
