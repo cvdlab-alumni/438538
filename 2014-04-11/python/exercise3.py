@@ -81,5 +81,5 @@ plan3 = COLOR(grey)(CUBOID([90,70,0.2]))
 parking = COLOR(darkgrey)(CUBOID([80,60,0.1]))
 parking = T([1,2])([190,10])(STRUCT([plan3,T([1,2,3])([5,5,0.2])(parking)]))
 neighbouringBuildings = STRUCT([street,park,palace,fascioHouse,parking,stadium])
-VIEW(neighbouringBuildings)
+# VIEW(neighbouringBuildings)
 
