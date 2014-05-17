@@ -12,7 +12,7 @@ def makeTree(coordinate):
 	bx,by = coordinate
 	def makeTree0(dimensions):
 		r,h = dimensions
-		tronco = larCylinder(dimensions)([32,1])
+		tronco = larCylinder(dimensions,[32,1])
 		chioma = larSphere(r*4)()
 		tronco = COLOR(brown)(STRUCT(MKPOLS(tronco)))
 		chioma = COLOR(forest)(STRUCT(MKPOLS(chioma)))
@@ -21,7 +21,7 @@ def makeTree(coordinate):
 
 def makeStreetLamp(coordinate):
 	bx,by = coordinate
-	palo = larCylinder([0.3,10])([32,1])
+	palo = larCylinder([0.3,10],[32,1])
 	luce = larSphere(0.7)()
 	palo = COLOR(silver)(STRUCT(MKPOLS(palo)))
 	luce = COLOR(yellow)(STRUCT(MKPOLS(luce)))
