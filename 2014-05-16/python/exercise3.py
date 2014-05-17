@@ -2,15 +2,12 @@ from larcc import *
  
 DRAW = COMP([VIEW,STRUCT,MKPOLS])
  
-# funzione per mappamento multiplo. Argomenti: sottodiagramma, lista di celle del sottodiagramma da eliminare, diagramma master, lista di celle del diagramma master in cui mappare il sotto diagramma (i numeri devono essere in riferimento alla numerazione del master originario.
 def mergingNumberingElimination(diagramHole,diagram,toMerge,toRemove):
 	diagramHole = diagramHole[0],[cell for k,cell in enumerate(diagramHole[1]) if not (k in toRemove)]
 	toMerge = list(sort(toMerge))
 	iterate = range(len(toMerge))
-	print 'iterate'+str(iterate)
 	for i in iterate:
 		elementToMerge = toMerge[i]-i
-		print elementToMerge
 		diagram = diagram2cell(diagramHole,diagram,elementToMerge)
 	return diagram
  
