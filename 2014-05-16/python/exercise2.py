@@ -1,9 +1,6 @@
 from exercise1 import *
 from larcc import *
 
-brown = makeColor(101,67,33)
-forest = makeColor(34,139,34)
-
 def makeStairs(l1,l2,l3):
 	stairs = []
 	j = l2/5
@@ -35,15 +32,20 @@ def makeTree(coordinate):
 	def makeTree0(dimensions):
 		r,h = dimensions
 		trunk = CYLINDER ([r,h])(50)
-		chioma = SPHERE(r*3.5)([32,32])
+		chioma = SPHERE(r*4.5)([32,32])
 		trunk = COLOR(brown)(STRUCT([trunk]))
 		chioma = COLOR(forest)(STRUCT([chioma]))
 		return T([1,2])([bx,by])(STRUCT([trunk,T(3)(h+r)(chioma)]))
 	return makeTree0
 
+# defining all the colors
+
 green = makeColor(1,121,111)
 grey = makeColor(147,147,147)
-glass = [0.1,0.2,0.3,1,  0,0,0,0.5,  2,2,2,1, 0,0,0,1, 100]
+brown = makeColor(101,67,33)
+forest = makeColor(34,139,34)
+lawnColor = makeColor(152,255,152)
+water = makeColor(153,203,255)
 
 apartmentRotate = larApply(s(-1,1,1))(apartment)
 apartmentRotate = larApply(t(19.8,0,0))(apartmentRotate)
@@ -149,8 +151,6 @@ bars = STRUCT([bars1,bars2,bars3,bars4,bars5,bars6,bars7,bars8,bars9])
 
 condominium = T([1,2])([20,25])(STRUCT([condominium,stairs,bars]))
 
-lawnColor = makeColor(152,255,152)
-
 lawn_x = QUOTE([87.6])
 lawn_y = QUOTE([50])
 lawn_z = QUOTE([.3])
@@ -175,8 +175,8 @@ c1 = makeCurve([[10,10],[2.5,11],[2.49,23],[2.5,25]])
 c2 = makeCurve([[2.5,25],[2.49,27],[2.5,39],[10,40]])
 c3 = makeCurve([[10,40],[17.5,39],[17.51,27],[17.5,25]])
 c4 = makeCurve([[17.5,25],[17.51,23],[17.5,11],[10,10]])
-lake = STRUCT([c1,c2,c3,c4])
-lake = T(3)(.6)(MATERIAL(glass)(SOLIDIFY(lake)))
+lake = SOLIDIFY(STRUCT([c1,c2,c3,c4]))
+lake = T(3)(.6)(COLOR(water)(lake))
 
 sidewalk_x = QUOTE([-20,-19.8,8])
 sidewalk_y = QUOTE([25])
@@ -184,10 +184,10 @@ sidewalk_z = QUOTE([-.5,.3])
 sidewalk = COLOR(grey)(INSR(PROD)([sidewalk_x,sidewalk_y,sidewalk_z]))
 
 
-tree1 = makeTree([80,5])([1.5,10])
-tree2 = makeTree([80,18])([1.5,11.6])
-tree3 = makeTree([80,31])([1.5,13.2])
-tree4 = makeTree([80,44])([1.5,15])
+tree1 = makeTree([80,5])([1,10])
+tree2 = makeTree([80,18])([1,11.6])
+tree3 = makeTree([80,31])([1,13.2])
+tree4 = makeTree([80,44])([1,15])
 tree = STRUCT([tree1,tree2,tree3,tree4])
 
 VIEW(STRUCT([condominium,apple,lawn,sidewalk,lake,tree]))
