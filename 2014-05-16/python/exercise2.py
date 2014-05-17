@@ -1,6 +1,9 @@
 from exercise1 import *
 from larcc import *
 
+brown = makeColor(101,67,33)
+forest = makeColor(34,139,34)
+
 def makeStairs(l1,l2,l3):
 	stairs = []
 	j = l2/5
@@ -26,6 +29,17 @@ def makeCurve(controlpoints):
 	mapping = larBezierCurve(controlpoints)
 	obj = larMap(mapping)(domain)
 	return STRUCT(MKPOLS(obj))
+
+def makeTree(coordinate):
+	bx,by = coordinate
+	def makeTree0(dimensions):
+		r,h = dimensions
+		trunk = CYLINDER ([r,h])(50)
+		chioma = SPHERE(r*3.5)([32,32])
+		trunk = COLOR(brown)(STRUCT([trunk]))
+		chioma = COLOR(forest)(STRUCT([chioma]))
+		return T([1,2])([bx,by])(STRUCT([trunk,T(3)(h+r)(chioma)]))
+	return makeTree0
 
 green = makeColor(1,121,111)
 grey = makeColor(147,147,147)
@@ -170,4 +184,10 @@ sidewalk_z = QUOTE([-.5,.3])
 sidewalk = COLOR(grey)(INSR(PROD)([sidewalk_x,sidewalk_y,sidewalk_z]))
 
 
-VIEW(STRUCT([condominium,apple,lawn,sidewalk,lake]))
+tree1 = makeTree([80,5])([1.5,10])
+tree2 = makeTree([80,18])([1.5,11.6])
+tree3 = makeTree([80,31])([1.5,13.2])
+tree4 = makeTree([80,44])([1.5,15])
+tree = STRUCT([tree1,tree2,tree3,tree4])
+
+VIEW(STRUCT([condominium,apple,lawn,sidewalk,lake,tree]))

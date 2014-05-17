@@ -117,6 +117,8 @@ toMerge = 94
 diagram = assemblyDiagramInit([1,3,3])([[.5],[1.6,1.5,3.7],zaxe])
 master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
+# VIEW(hpc)
 
 toRemove = [144,153,162,171,180,189,198]
 apartment = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+# DRAW(master)
