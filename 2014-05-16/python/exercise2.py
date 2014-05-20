@@ -9,6 +9,17 @@ def makeStairs(l1,l2,l3):
 		stairs = stairs+[steps]
 	return stairs
 
+def larStruct(model_list):
+	finalV=[]
+	finalCV=[]
+	count=0
+	for m in model_list:
+		finalV=finalV+m[0]
+		tempCV = AA(AA(lambda x: x+count))(m[1])
+		finalCV=finalCV+tempCV
+		count = count + len(m[0])
+	return finalV,finalCV
+
 def makeBars(l1,h):
 	bars_x = QUOTE([-.15,.2,-.15]*(l1*2))
 	bars_y = QUOTE([0.2])
@@ -31,11 +42,11 @@ def makeTree(coordinate):
 	bx,by = coordinate
 	def makeTree0(dimensions):
 		r,h = dimensions
-		trunk = CYLINDER ([r,h])(50)
-		chioma = SPHERE(r*4.5)([32,32])
-		trunk = COLOR(brown)(STRUCT([trunk]))
-		chioma = COLOR(forest)(STRUCT([chioma]))
-		return T([1,2])([bx,by])(STRUCT([trunk,T(3)(h+r)(chioma)]))
+		tronco = larCylinder(r,h)([32,1])
+		chioma = larSphere(r*4)()
+		tronco = COLOR(brown)(STRUCT(MKPOLS(tronco)))
+		chioma = COLOR(forest)(STRUCT(MKPOLS(chioma)))
+		return T([1,2])([bx,by])(STRUCT([tronco,T(3)(h+r)(chioma)]))
 	return makeTree0
 
 # defining all the colors
@@ -50,109 +61,238 @@ water = makeColor(153,203,255)
 apartmentRotate = larApply(s(-1,1,1))(apartment)
 apartmentRotate = larApply(t(19.8,0,0))(apartmentRotate)
 
-master = assemblyDiagramInit([3,1,11])([[19.8,8,19.8],[21.8],[.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5]])
+master = assemblyDiagramInit([3,1,13])([[19.8,8,19.8],[26],[.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5]])
 V,CV = master
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(CV)),gold,2)
+# VIEW(hpc)
 
-toRemove = [12,14,16,18,20]
+toRemove = [14,16,18,20,22,24]
 master = V,[cell for k,cell in enumerate(CV) if not (k in toRemove)]
 hpc = SKEL_1(STRUCT(MKPOLS(master)))
 hpc = cellNumbering (master,hpc)(range(len(master[1])),gold,2)
+# VIEW(hpc)
 
-toMerge = 12
-diagram = assemblyDiagramInit([3,3,1])([[2,4,2],[2,10,7.8],[0.5]])
+toMerge = 14
+diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
 master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
+# VIEW(hpc)
 
-
-toMerge = 12
-diagram = assemblyDiagramInit([3,3,1])([[2,4,2],[2,10,7.8],[0.5]])
+toMerge = 14
+diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 12
-diagram = assemblyDiagramInit([3,3,1])([[2,4,2],[2,10,7.8],[0.5]])
-master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-
-
-toMerge = 12
-diagram = assemblyDiagramInit([3,3,1])([[2,4,2],[2,10,7.8],[0.5]])
-master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-
-toRemove = [12,28,37,46,55]
-master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(master[1])),gold,2)
-
-
-toMerge = 13
-master = diagram2cell(apartment,master,toMerge)
 hpc = makeHole(master,gold)
 
 toMerge = 14
-master = diagram2cell(apartment,master,toMerge)
+diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
+master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
 
-toMerge = 15
-master = diagram2cell(apartment,master,toMerge)
+
+toMerge = 14
+diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
+master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
 
-toMerge = 16
-master = diagram2cell(apartment,master,toMerge)
+toMerge = 14
+diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
+master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
+# VIEW(hpc)
 
-toMerge = 17
-master = diagram2cell(apartment,master,toMerge)
+toRemove = [14,28,32,34,36,40,44,46,48,52,56,58,60,64,68,70,72,76,80,82,84]
+master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),gold,2)
+# VIEW(hpc)
+# DRAW(master)
+
+toMerge = 0
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 0
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 0
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
 
 toMerge = 1
-master = diagram2cell(apartmentRotate,master,toMerge)
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
+# VIEW(hpc)
 
 toMerge = 2
-master = diagram2cell(apartmentRotate,master,toMerge)
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
+# VIEW(hpc)
 
 toMerge = 3
-master = diagram2cell(apartmentRotate,master,toMerge)
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
 hpc = makeHole(master,gold)
+# VIEW(hpc)
 
 toMerge = 4
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 5
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 5
+diagram = assemblyDiagramInit([1,2,1])([[8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 5
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 5
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 5
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 6
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 7
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 8
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 9
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 10
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toRemove = [50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82]
+master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
+hpc = SKEL_1(STRUCT(MKPOLS(master)))
+hpc = cellNumbering (master,hpc)(range(len(master[1])),gold,2)
+# VIEW(hpc)
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 0
 master = diagram2cell(apartmentRotate,master,toMerge)
 hpc = makeHole(master,gold)
 
-toMerge = 5
+toMerge = 0
 master = diagram2cell(apartmentRotate,master,toMerge)
 hpc = makeHole(master,gold)
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
+hpc = makeHole(master,gold)
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
+hpc = makeHole(master,gold)
+# VIEW(hpc)
+
+toMerge = 0
+master = diagram2cell(apartment,master,toMerge)
+hpc = makeHole(master,gold)
+
+toMerge = 0
+master = diagram2cell(apartment,master,toMerge)
+hpc = makeHole(master,gold)
+
+toMerge = 0
+master = diagram2cell(apartment,master,toMerge)
+hpc = makeHole(master,gold)
+
+toMerge = 0
+master = diagram2cell(apartment,master,toMerge)
+hpc = makeHole(master,gold)
+
+toMerge = 0
+master = diagram2cell(apartment,master,toMerge)
+hpc = makeHole(master,gold)
+
+# VIEW(hpc)
 
 condominium = (STRUCT(MKPOLS(master)))
 
 stairs = STRUCT(makeStairs(4,10,.4))
-stairs1 = T([1,2,3])([21.8,2,.5])(stairs)
-stairs2 = T([1,2,3])([21.8,2,4.5])(stairs)
-stairs3 = T([1,2,3])([21.8,2,8.5])(stairs)
-stairs4 = T([1,2,3])([21.8,2,12.5])(stairs)
-stairs = STRUCT([stairs1,stairs2,stairs3,stairs4])
+stairs1 = T([1,2])([21.8,6.5])(stairs)
+stairs2 = T([1,2,3])([21.8,6.5,4])(stairs)
+stairs3 = T([1,2,3])([21.8,6.5,8])(stairs)
+stairs4 = T([1,2,3])([21.8,6.5,12])(stairs)
+stairs5 = T([1,2,3])([21.8,6.5,16])(stairs)
+stairs = STRUCT([stairs1,stairs2,stairs3,stairs4,stairs5])
+
+# VIEW(STRUCT([stairs,condominium]))
 
 bars = makeBars(8,1)
-bars1 = T([1,2,3])([19.8,21.6,.5])(bars)
-bars2 = T([1,2,3])([19.8,0,4.5])(bars)
-bars3 = T([1,2,3])([19.8,21.6,4.5])(bars)
-bars4 = T([1,2,3])([19.8,0,8.5])(bars)
-bars5 = T([1,2,3])([19.8,21.6,8.5])(bars)
-bars6 = T([1,2,3])([19.8,0,12.5])(bars)
-bars7 = T([1,2,3])([19.8,21.6,12.5])(bars)
-bars8 = T([1,2,3])([19.8,0,16.5])(bars)
-bars9 = T([1,2,3])([19.8,21.6,16.5])(bars)
-bars = STRUCT([bars1,bars2,bars3,bars4,bars5,bars6,bars7,bars8,bars9])
+bars1 = T([1,2,3])([19.8,26,.5])(bars)
+bars2 = T([1,2,3])([19.8,4.2,4.5])(bars)
+bars3 = T([1,2,3])([19.8,26,4.5])(bars)
+bars4 = T([1,2,3])([19.8,4.2,8.5])(bars)
+bars5 = T([1,2,3])([19.8,26,8.5])(bars)
+bars6 = T([1,2,3])([19.8,4.2,12.5])(bars)
+bars7 = T([1,2,3])([19.8,26,12.5])(bars)
+bars8 = T([1,2,3])([19.8,4.2,16.5])(bars)
+bars9 = T([1,2,3])([19.8,26,16.5])(bars)
+bars10 = T([1,2,3])([19.8,4.2,20.5])(bars)
+bars11 = T([1,2,3])([19.8,26,20.5])(bars)
+bars = STRUCT([bars1,bars2,bars3,bars4,bars5,bars6,bars7,bars8,bars9,bars10,bars11])
+condominium = STRUCT([condominium,stairs,bars])
 
+# VIEW(condominium)
 condominium = T([1,2])([20,25])(STRUCT([condominium,stairs,bars]))
 
+
 lawn_x = QUOTE([87.6])
-lawn_y = QUOTE([50])
+lawn_y = QUOTE([54.2])
 lawn_z = QUOTE([.3])
 lawn = COLOR(lawnColor)(INSR(PROD)([lawn_x,lawn_y,lawn_z]))
 
@@ -163,11 +303,11 @@ c4 = makeCurve([[3.631, 0.883], [4.114, 0.858], [4.604, 1.606], [4.773, 2.137]])
 c5 = makeCurve([[4.773, 2.137], [4.054, 2.42], [3.801, 3.453], [4.628, 3.97]])
 c6 = makeCurve([[4.628, 3.97], [4.382, 4.385], [3.961, 4.425], [3.824, 4.441]])
 c7 = makeCurve([[3.824, 4.441], [3.386, 4.501], [2.874, 4.163], [2.797, 4.224]])
-c8 = makeCurve([[2.797, 4.224], [2.345, 4.284], [2.356, 4.454], [1.96, 4.427]])
+c8 = makeCurve([[2.797, 4.224], [2.345, 4.284], [2.356, 4.454], [1.96, 4.432]])
 c9 = makeCurve([[2.836, 4.555], [2.768, 5.206], [3.344, 5.522], [3.871, 5.606]])
-c10 = makeCurve([[3.871, 5.606], [3.88, 5.321], [3.757, 4.568], [2.833, 4.544]])
+c10 = makeCurve([[3.871, 5.606], [3.88, 5.321], [3.757, 4.568], [2.836, 4.555]])
 
-apple1 = T([1,2,3])([25,8,.51])(S([1,2])([2.5,2.5])(STRUCT([c1,c2,c3,c4,c5,c6,c7,c8,c9,c10])))
+apple1 = T([1,2,3])([25,8,.51])(S([1,2])([2.5,2.5])(SOLIDIFY(STRUCT([c1,c2,c3,c4,c5,c6,c7,c8,c9,c10]))))
 apple2 = T(1)(25)(apple1)
 apple = COLOR(green)(STRUCT([apple1,apple2]))
 
@@ -179,7 +319,7 @@ lake = SOLIDIFY(STRUCT([c1,c2,c3,c4]))
 lake = T(3)(.6)(COLOR(water)(lake))
 
 sidewalk_x = QUOTE([-20,-19.8,8])
-sidewalk_y = QUOTE([25])
+sidewalk_y = QUOTE([29.2])
 sidewalk_z = QUOTE([-.5,.3])
 sidewalk = COLOR(grey)(INSR(PROD)([sidewalk_x,sidewalk_y,sidewalk_z]))
 
