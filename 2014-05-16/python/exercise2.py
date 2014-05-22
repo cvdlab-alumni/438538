@@ -63,217 +63,154 @@ def translatePoints (points, tvect):
 		result = result+[[p[0]+tvect[0],p[1]+tvect[1],p[2]+tvect[2]]]
 	return result
 
-# defining all the colors
+# defininition of all the colors
 
 green = makeColor(1,121,111)
 grey = makeColor(147,147,147)
 brown = makeColor(101,67,33)
 forest = makeColor(34,139,34)
 lawnColor = makeColor(152,255,152)
-# water = makeColor(153,203,255)
 water = [0.05,0.4,0.4,1,  0,0.3,0.3,0.5,  2,2,2,1, 0,0,0,1, 100]
 
 apartmentRotate = larApply(s(-1,1,1))(apartment)
 apartmentRotate = larApply(t(19.8,0,0))(apartmentRotate)
 
+# creation of condominium
+
 master = assemblyDiagramInit([3,1,13])([[19.8,8,19.8],[26],[.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5,3.5,.5]])
-V,CV = master
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(CV)),gold,2)
-# VIEW(hpc)
 
-toRemove = [14,16,18,20,22,24]
-master = V,[cell for k,cell in enumerate(CV) if not (k in toRemove)]
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(master[1])),gold,2)
-# VIEW(hpc)
+# make hole for stairs
 
-toMerge = 14
+toMerge = 15
 diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
-toMerge = 14
+toMerge = 16
 diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
 
-toMerge = 14
+toMerge = 17
 diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
 
-
-toMerge = 14
+toMerge = 18
 diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
 
-toMerge = 14
+toMerge = 19
 diagram = assemblyDiagramInit([3,4,1])([[2,4,2],[4.2,2,10,7.8],[0.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
-toRemove = [14,28,32,34,36,40,44,46,48,52,56,58,60,64,68,70,72,76,80,82,84]
-master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(master[1])),gold,2)
-# VIEW(hpc)
-# DRAW(master)
+# make hole for balcony
 
 toMerge = 0
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 0
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 0
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 1
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 2
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 3
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 4
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 5
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
 toMerge = 5
 diagram = assemblyDiagramInit([1,2,1])([[8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
-toMerge = 5
+toMerge = 12
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
-toMerge = 5
+toMerge = 12
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[3.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
-toMerge = 5
+toMerge = 12
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
 
-toMerge = 6
+toMerge = 13
 diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
 master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
+
+toMerge = 14
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+
+toMerge = 15
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+
+toMerge = 16
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+
+toMerge = 17
+diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
+master = diagram2cell(diagram,master,toMerge)
+
+# substitution of cells with apartment
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
+
+toMerge = 0
+master = diagram2cell(apartmentRotate,master,toMerge)
 
 toMerge = 7
-diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
-master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
+master = diagram2cell(apartment,master,toMerge)
 
-toMerge = 8
-diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
-master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
+toMerge = 7
+master = diagram2cell(apartment,master,toMerge)
 
-toMerge = 9
-diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
-master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
+toMerge = 7
+master = diagram2cell(apartment,master,toMerge)
 
-toMerge = 10
-diagram = assemblyDiagramInit([1,2,1])([[19.8],[4.2,21.8],[.5]])
-master = diagram2cell(diagram,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
+toMerge = 7
+master = diagram2cell(apartment,master,toMerge)
 
-toRemove = [50,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82]
+toMerge = 7
+master = diagram2cell(apartment,master,toMerge)
+
+# removal all the cells in surplus
+
+balconyHole = [7,11,15,19,23,27,67,69,71,73,75,77,79,81,83,85,87,89,91,93,95,97,99]
+stairsHole = [0,1,2,3,4,5,6,13,25,31,35,37,39,43,47,49,51,55,59,61,63]
+toRemove = stairsHole+balconyHole
 master = master[0], [cell for k,cell in enumerate(master[1]) if not (k in toRemove)]
-hpc = SKEL_1(STRUCT(MKPOLS(master)))
-hpc = cellNumbering (master,hpc)(range(len(master[1])),gold,2)
-# VIEW(hpc)
 
-toMerge = 0
-master = diagram2cell(apartmentRotate,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
-
-toMerge = 0
-master = diagram2cell(apartmentRotate,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 0
-master = diagram2cell(apartmentRotate,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 0
-master = diagram2cell(apartmentRotate,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 0
-master = diagram2cell(apartmentRotate,master,toMerge)
-hpc = makeHole(master,gold)
-# VIEW(hpc)
-
-toMerge = 0
-master = diagram2cell(apartment,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 0
-master = diagram2cell(apartment,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 0
-master = diagram2cell(apartment,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 0
-master = diagram2cell(apartment,master,toMerge)
-hpc = makeHole(master,gold)
-
-toMerge = 0
-master = diagram2cell(apartment,master,toMerge)
-hpc = makeHole(master,gold)
-
-# VIEW(hpc)
+# creation of a condominium
 
 condominium = (STRUCT(MKPOLS(master)))
 
@@ -300,9 +237,7 @@ bars9 = MKPOLS((translatePoints(bars[0],[19.8,26,16.5]),bars[1]))
 bars10 = MKPOLS((translatePoints(bars[0],[19.8,4.2,20.5]),bars[1]))
 bars11 = MKPOLS((translatePoints(bars[0],[19.8,26,20.5]),bars[1]))
 bars = STRUCT(bars1+bars2+bars3+bars4+bars5+bars6+bars7+bars8+bars9+bars10+bars11)
-condominium = STRUCT([condominium,stairs,bars])
 
-# VIEW(condominium)
 condominium = T([1,2])([28,25])(STRUCT([condominium,stairs,bars]))
 
 V,CV = larCuboids([1,1,1])
@@ -343,6 +278,6 @@ tree1 = makeTree([88,5])([1,10])
 tree2 = makeTree([88,18])([1,11.6])
 tree3 = makeTree([88,31])([1,13.2])
 tree4 = makeTree([88,44])([1,15])
-tree = STRUCT([tree1,tree2,tree3,tree4])
+trees = STRUCT([tree1,tree2,tree3,tree4])
 
-VIEW(STRUCT([condominium,apple,lawn,sidewalk,lake,tree]))
+VIEW(STRUCT([condominium,apple,lawn,sidewalk,lake,trees]))
