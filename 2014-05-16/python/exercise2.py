@@ -4,10 +4,13 @@ from larcc import *
 def makeStairs(l1,l2,l3):
 	stairs = []
 	j = l2/5
-	for i in range(1,l2):
-		steps = T([2,3])([i,i*l3])(CUBOID([l1,j,l3]))
+	for i in range(l2):
+		V,CV = larCuboids([l1,1,1])
+		V = scalePoints(V,[1,j,l3])
+		V = translatePoints(V,[0,i,i*l3])
+		steps = V,CV
 		stairs = stairs+[steps]
-	return stairs
+	return larStruct(stairs)
 
 def larStruct(model_list):
 	finalV=[]
@@ -21,16 +24,21 @@ def larStruct(model_list):
 	return finalV,finalCV
 
 def makeBars(l1,h):
-	bars_x = QUOTE([-.15,.2,-.15]*(l1*2))
-	bars_y = QUOTE([0.2])
-	bars_z = QUOTE([h])
-	bars1 = INSR(PROD)([bars_x,bars_y,bars_z])
-	bars_x = QUOTE([l1])
-	bars_y = QUOTE([.2])
-	bars_z = QUOTE([-h,.2])
-	bars2 = INSR(PROD)([bars_x,bars_y,bars_z])
-	bars = STRUCT([bars1,bars2])
-	return bars
+	bars = []
+	for i in range(l1*2):
+		if i==0:
+			x = 0.15
+		else :
+			x = (.5*i)+.15
+		V,CV = larCuboids([1,1,1])
+		V = translatePoints(scalePoints(V,[.2,.2,h]),[x,0,0])
+		bar = V,CV
+		bars = bars + [bar]
+	V,CV = larCuboids([1,1,1])
+	V = translatePoints(scalePoints(V,[l1,.2,.2]),[0,0,h])
+	bar = V,CV
+	bars = bars + [bar]
+	return larStruct(bars)
 
 def makeCurve(controlpoints):
 	domain = larDomain([32])
@@ -49,6 +57,12 @@ def makeTree(coordinate):
 		return T([1,2])([bx,by])(STRUCT([tronco,T(3)(h+r)(chioma)]))
 	return makeTree0
 
+def translatePoints (points, tvect):
+	result = []
+	for p in points :
+		result = result+[[p[0]+tvect[0],p[1]+tvect[1],p[2]+tvect[2]]]
+	return result
+
 # defining all the colors
 
 green = makeColor(1,121,111)
@@ -56,7 +70,8 @@ grey = makeColor(147,147,147)
 brown = makeColor(101,67,33)
 forest = makeColor(34,139,34)
 lawnColor = makeColor(152,255,152)
-water = makeColor(153,203,255)
+# water = makeColor(153,203,255)
+water = [0.05,0.4,0.4,1,  0,0.3,0.3,0.5,  2,2,2,1, 0,0,0,1, 100]
 
 apartmentRotate = larApply(s(-1,1,1))(apartment)
 apartmentRotate = larApply(t(19.8,0,0))(apartmentRotate)
@@ -262,39 +277,38 @@ hpc = makeHole(master,gold)
 
 condominium = (STRUCT(MKPOLS(master)))
 
-stairs = STRUCT(makeStairs(4,10,.4))
-stairs1 = T([1,2])([21.8,6.5])(stairs)
-stairs2 = T([1,2,3])([21.8,6.5,4])(stairs)
-stairs3 = T([1,2,3])([21.8,6.5,8])(stairs)
-stairs4 = T([1,2,3])([21.8,6.5,12])(stairs)
-stairs5 = T([1,2,3])([21.8,6.5,16])(stairs)
-stairs = STRUCT([stairs1,stairs2,stairs3,stairs4,stairs5])
+stairs = makeStairs(4,10,.4)
+stairs1 = MKPOLS((translatePoints(stairs[0],[21.8,6.5,0.5]),stairs[1]))
+stairs2 = MKPOLS((translatePoints(stairs[0],[21.8,6.5,4.5]),stairs[1]))
+stairs3 = MKPOLS((translatePoints(stairs[0],[21.8,6.5,8.5]),stairs[1]))
+stairs4 = MKPOLS((translatePoints(stairs[0],[21.8,6.5,12.5]),stairs[1]))
+stairs5 = MKPOLS((translatePoints(stairs[0],[21.8,6.5,16.5]),stairs[1]))
+stairs = STRUCT(stairs1+stairs2+stairs3+stairs4+stairs5)
 
 # VIEW(STRUCT([stairs,condominium]))
 
 bars = makeBars(8,1)
-bars1 = T([1,2,3])([19.8,26,.5])(bars)
-bars2 = T([1,2,3])([19.8,4.2,4.5])(bars)
-bars3 = T([1,2,3])([19.8,26,4.5])(bars)
-bars4 = T([1,2,3])([19.8,4.2,8.5])(bars)
-bars5 = T([1,2,3])([19.8,26,8.5])(bars)
-bars6 = T([1,2,3])([19.8,4.2,12.5])(bars)
-bars7 = T([1,2,3])([19.8,26,12.5])(bars)
-bars8 = T([1,2,3])([19.8,4.2,16.5])(bars)
-bars9 = T([1,2,3])([19.8,26,16.5])(bars)
-bars10 = T([1,2,3])([19.8,4.2,20.5])(bars)
-bars11 = T([1,2,3])([19.8,26,20.5])(bars)
-bars = STRUCT([bars1,bars2,bars3,bars4,bars5,bars6,bars7,bars8,bars9,bars10,bars11])
+bars1 = MKPOLS((translatePoints(bars[0],[19.8,26,0.5]),bars[1]))
+bars2 = MKPOLS((translatePoints(bars[0],[19.8,4.2,4.5]),bars[1]))
+bars3 = MKPOLS((translatePoints(bars[0],[19.8,26,8.5]),bars[1]))
+bars4 = MKPOLS((translatePoints(bars[0],[19.8,4.2,8.5]),bars[1]))
+bars5 = MKPOLS((translatePoints(bars[0],[19.8,26,8.5]),bars[1]))
+bars6 = MKPOLS((translatePoints(bars[0],[19.8,4.2,12.5]),bars[1]))
+bars7 = MKPOLS((translatePoints(bars[0],[19.8,26,12.5]),bars[1]))
+bars8 = MKPOLS((translatePoints(bars[0],[19.8,4.2,16.5]),bars[1]))
+bars9 = MKPOLS((translatePoints(bars[0],[19.8,26,16.5]),bars[1]))
+bars10 = MKPOLS((translatePoints(bars[0],[19.8,4.2,20.5]),bars[1]))
+bars11 = MKPOLS((translatePoints(bars[0],[19.8,26,20.5]),bars[1]))
+bars = STRUCT(bars1+bars2+bars3+bars4+bars5+bars6+bars7+bars8+bars9+bars10+bars11)
 condominium = STRUCT([condominium,stairs,bars])
 
 # VIEW(condominium)
 condominium = T([1,2])([20,25])(STRUCT([condominium,stairs,bars]))
 
-
-lawn_x = QUOTE([87.6])
-lawn_y = QUOTE([54.2])
-lawn_z = QUOTE([.3])
-lawn = COLOR(lawnColor)(INSR(PROD)([lawn_x,lawn_y,lawn_z]))
+V,CV = larCuboids([1,1,1])
+V = scalePoints(V,[87.6,54.2,.3])
+lawn = MKPOLS((V,CV))
+lawn = COLOR(lawnColor)(STRUCT(lawn))
 
 c1 = makeCurve([[1.96, 4.432], [-0.119, 4.181], [0.898, 1.189], [1.987, 0.875]])
 c2 = makeCurve([[1.987, 0.875], [2.526, 0.922], [2.57, 1.095], [2.83, 1.065]])
@@ -316,13 +330,14 @@ c2 = makeCurve([[2.5,25],[2.49,27],[2.5,39],[10,40]])
 c3 = makeCurve([[10,40],[17.5,39],[17.51,27],[17.5,25]])
 c4 = makeCurve([[17.5,25],[17.51,23],[17.5,11],[10,10]])
 lake = SOLIDIFY(STRUCT([c1,c2,c3,c4]))
-lake = T(3)(.6)(COLOR(water)(lake))
+lake1 = T(3)(.5)(lake)
+lake = T(3)(.6)(MATERIAL(water)(lake))
+lake = STRUCT([lake1,lake])
 
-sidewalk_x = QUOTE([-20,-19.8,8])
-sidewalk_y = QUOTE([29.2])
-sidewalk_z = QUOTE([-.5,.3])
-sidewalk = COLOR(grey)(INSR(PROD)([sidewalk_x,sidewalk_y,sidewalk_z]))
-
+V,CV = larCuboids([1,1,1])
+V = translatePoints(scalePoints(V,[8,29.2,.3]),[39.8,0,.5])
+sidewalk = MKPOLS((V,CV))
+sidewalk = COLOR(grey)(STRUCT(sidewalk))
 
 tree1 = makeTree([80,5])([1,10])
 tree2 = makeTree([80,18])([1,11.6])

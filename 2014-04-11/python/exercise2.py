@@ -4,6 +4,7 @@ SILVER = Color4f([0.75,0.75,0.75,1])
 BLU= (Color4f([0.94,0.97,1,1]))
 HALFGREY = makeColor(128,128,128)
 glass = [0.1,0.2,0.3,1,  0,0,0,0.5,  2,2,2,1, 0,0,0,1, 100]
+
 superficie_1x = QUOTE([33])
 superficie_1y = QUOTE([12.375])
 superficie1 = (INSR)(PROD)([superficie_1x,superficie_1y,QUOTE([0.5])])
