@@ -303,10 +303,10 @@ bars = STRUCT(bars1+bars2+bars3+bars4+bars5+bars6+bars7+bars8+bars9+bars10+bars1
 condominium = STRUCT([condominium,stairs,bars])
 
 # VIEW(condominium)
-condominium = T([1,2])([20,25])(STRUCT([condominium,stairs,bars]))
+condominium = T([1,2])([28,25])(STRUCT([condominium,stairs,bars]))
 
 V,CV = larCuboids([1,1,1])
-V = scalePoints(V,[87.6,54.2,.3])
+V = scalePoints(V,[95,54.2,.3])
 lawn = MKPOLS((V,CV))
 lawn = COLOR(lawnColor)(STRUCT(lawn))
 
@@ -321,7 +321,7 @@ c8 = makeCurve([[2.797, 4.224], [2.345, 4.284], [2.356, 4.454], [1.96, 4.432]])
 c9 = makeCurve([[2.836, 4.555], [2.768, 5.206], [3.344, 5.522], [3.871, 5.606]])
 c10 = makeCurve([[3.871, 5.606], [3.88, 5.321], [3.757, 4.568], [2.836, 4.555]])
 
-apple1 = T([1,2,3])([25,8,.51])(S([1,2])([2.5,2.5])(SOLIDIFY(STRUCT([c1,c2,c3,c4,c5,c6,c7,c8,c9,c10]))))
+apple1 = T([1,2,3])([33,8,.51])(S([1,2])([2.5,2.5])(SOLIDIFY(STRUCT([c1,c2,c3,c4,c5,c6,c7,c8,c9,c10]))))
 apple2 = T(1)(25)(apple1)
 apple = COLOR(green)(STRUCT([apple1,apple2]))
 
@@ -335,14 +335,14 @@ lake = T(3)(.6)(MATERIAL(water)(lake))
 lake = STRUCT([lake1,lake])
 
 V,CV = larCuboids([1,1,1])
-V = translatePoints(scalePoints(V,[8,29.2,.3]),[39.8,0,.5])
+V = translatePoints(scalePoints(V,[8,29.2,.3]),[47.8,0,.5])
 sidewalk = MKPOLS((V,CV))
 sidewalk = COLOR(grey)(STRUCT(sidewalk))
 
-tree1 = makeTree([80,5])([1,10])
-tree2 = makeTree([80,18])([1,11.6])
-tree3 = makeTree([80,31])([1,13.2])
-tree4 = makeTree([80,44])([1,15])
+tree1 = makeTree([88,5])([1,10])
+tree2 = makeTree([88,18])([1,11.6])
+tree3 = makeTree([88,31])([1,13.2])
+tree4 = makeTree([88,44])([1,15])
 tree = STRUCT([tree1,tree2,tree3,tree4])
 
 VIEW(STRUCT([condominium,apple,lawn,sidewalk,lake,tree]))
