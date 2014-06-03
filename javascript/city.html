@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <title>City</title> 
+  <style>
+    body{
+      margin: 0;
+      overflow: hidden;
+    }
+  </style> 
+  </head> 
+  <body>
+    <!-- JavaScript libraries -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script> 
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.min.js"></script>
+    <script src="assets/libs/TrackballControls.js"></script>
+    <!-- Javascript code that runs our Three.js examples --> 
+    <script>
+      // once everything is loaded, we run our Three.js stuff.
+      $(function () {
+        var stats = initStats();
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 0.1, 1000);
+        var renderer = new THREE.WebGLRenderer();
+        var trackballControls = new THREE.TrackballControls(camera);
+
+        //colors
+        var white = new THREE.Color(0xFFFFFF,1.0);
+
+        renderer.setClearColor(white);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMapEnabled = true;
+
+        // creation of a palace
+        var x_basis = 10;
+        var y_basis = 10;
+        var height = 30;
+        var offset = 5;
+        var palaceCopy = 20;
+        var planeDim_x = 200;
+        var planeDim_y = 200;
+        var palaceGeometry = new THREE.BoxGeometry(x_basis,y_basis,height);
+        var palaceMaterial = new THREE.MeshLambertMaterial({color : 0xDAA520});
+        var palace = new THREE.Mesh(palaceGeometry, palaceMaterial);
+        palace.position.set(0,0,15);
+        palace.castShadow = true;
+
+        // creation of a plan
+        var planeGeometry = new THREE.PlaneGeometry(planeDim_x,planeDim_y,40,40);
+        var planeMaterial = new THREE.MeshLambertMaterial({color : 0x98FF98});
+        planeMaterial.side = THREE.DoubleSide;
+        var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.position.set(100,100,0);
+        plane.receiveShadow = true;
+
+        function doesIntersect(elements,newElement,bx,by,offset) {
+          for (i=0; i<elements.length; i++) {
+            var posx1 = elements[i][0]-bx-offset;
+            var posx2 = elements[i][0]+bx+offset;
+            var posy1 = elements[i][1]-by-offset;
+            var posy2 = elements[i][1]+by+offset;
+            if (newElement[0]>posx1 && newElement[0]<posx2) {
+              if (newElement[1]>posy1 && newElement[1]<posy2) {
+                return true;
+              }
+            }
+          }
+          return false;
+        }
+        
+        function duplicateElement(elementToDupl,bx,by,ncopy,offset,planeDim_x,planeDim_y,height) {
+          var elements = [];
+          var i = 0;
+          for (i=0; i<ncopy; i++) {
+            var palaces = elementToDupl.clone();
+            var x = Math.ceil(Math.random()*(planeDim_x-bx)+(bx/2));
+            var y = Math.ceil(Math.random()*(planeDim_y-by)+(by/2));
+            var pos = [x,y];
+            while(doesIntersect(elements,pos,bx,by,offset)) {
+              var x = Math.ceil(Math.random()*(planeDim_x-bx)+(bx/2));
+              var y = Math.ceil(Math.random()*(planeDim_y-by)+(by/2));
+              pos = [x,y];
+            }
+            elements.push(pos);
+            palaces.position.set(x,y,height/2);
+            palaces.castShadow = true;
+            scene.add(palaces);
+          }
+        }
+        
+        function generateApple(foliageRadius,appleRadius,foliage,numApple) {
+          var appleGeometry = new THREE.SphereGeometry(appleRadius,10,10);
+          var appleMaterial = new THREE.MeshLambertMaterial({color: 0xc80815});
+          for (i=0; i<numApple; i++) {
+            var apple = new THREE.Mesh(appleGeometry,appleMaterial);
+            var alfa = Math.random()*Math.PI;
+            var beta = (Math.random()*Math.PI*2)-Math.PI;
+            var x = foliageRadius*Math.sin(alfa)*Math.cos(beta);
+            var y = foliageRadius*Math.sin(alfa)*Math.sin(beta);
+            var z = foliageRadius*Math.cos(alfa);
+            apple.position.set(x,y,z);
+            foliage.add(apple);
+          }
+          return foliage;
+        }
+
+        function generateForest(trunkRadius,trunkHeight,foliageRadius,appleRadius,numTrees,numApple,toCast,xm,xM,ym,yM) {
+          var tree = new THREE.Object3D();
+          var foliage = new THREE.Object3D();
+          // creation of trunk
+          var trunkGeometry = new THREE.CylinderGeometry( trunkRadius, trunkRadius, trunkHeight, 32 );
+          var trunkMaterial = new THREE.MeshLambertMaterial( {color: 0x964B00} );
+          var trunk = new THREE.Mesh( trunkGeometry, trunkMaterial );
+          trunk.rotation.x=-0.5*Math.PI;
+          // creation of foliage
+          var sphereGeometry = new THREE.SphereGeometry(foliageRadius,20,20);
+          var sphereMaterial = new THREE.MeshLambertMaterial({color: 0x177245});
+          var sphere = new THREE.Mesh(sphereGeometry,sphereMaterial);
+
+          foliage.add(sphere);
+          tree.add(trunk);
+
+          foliage = generateApple(foliageRadius,appleRadius,foliage,numApple);
+          foliage.position.set(0,0,(trunkHeight-3));
+          tree.add(foliage);
+
+          if (toCast) {
+            trunk.castShadow = true;
+            sphere.castShadow = true;
+          }
+
+          for (i=0;i<numTrees;i++) {
+            var tree1 = tree.clone();
+            var x = (Math.random()*(xM-xm-2*foliageRadius))+(xm+foliageRadius);
+            var y = (Math.random()*(yM-ym-2*foliageRadius))+(ym+foliageRadius);
+            tree1.position.set(x,y,trunkHeight/2);
+            scene.add(tree1);
+            tree1.castShadow = true;
+          }
+        }
+
+        duplicateElement(palace,x_basis,y_basis,palaceCopy,offset,100,100,height);
+        generateForest(1,10,4,0.4,50,30,true,100,200,100,200);
+
+        var ambiColor = "#0c0c0c";
+        var ambientLight = new THREE.AmbientLight(ambiColor);
+        var axisHelper = new THREE.AxisHelper(30);
+
+        camera.position.set(-30,100,70);
+        camera.up = new THREE.Vector3(0,0,1);
+        camera.lookAt(scene.position);
+
+        var pointColor = "#dccbc4";
+        var directionalLight = new THREE.DirectionalLight(pointColor);
+        directionalLight.position.set(-40, -10, 60);
+        directionalLight.castShadow = true;
+        directionalLight.shadowCameraNear = -50;
+        directionalLight.shadowCameraFar = 450;
+        directionalLight.shadowCameraLeft = -50;
+        directionalLight.shadowCameraRight = 450;
+        directionalLight.shadowCameraTop = 350;
+        directionalLight.shadowCameraBottom = -50;
+
+        directionalLight.intensity = 0.5;
+        directionalLight.shadowMapHeight = 1024;
+        directionalLight.shadowMapWidth = 1024;
+        directionalLight.castShadow = true;
+
+        var sphereLight = new THREE.SphereGeometry(5);
+        var sphereLightMaterial = new THREE.MeshBasicMaterial({color: 0xac6c25});
+        var sphereLightMesh = new THREE.Mesh(sphereLight, sphereLightMesh);
+        sphereLightMesh.castShadow = true;
+        sphereLightMesh.position = new THREE.Vector3( 0, 0, 50 );
+
+        $('body').append(renderer.domElement);
+
+        var step = 0;
+
+        var controls = new function() {
+          this.showAxisHelper = true;
+          this.bouncingSpeed = 0.03;
+        }
+
+        var gui = new dat.GUI();
+        var axisControl = gui.add(controls,'showAxisHelper');
+
+        scene.add(plane);
+        scene.add(ambientLight);
+        scene.add(axisHelper);
+        scene.add(directionalLight);
+        scene.add(sphereLightMesh)
+
+
+        renderer.render(scene,camera);
+        render();
+
+        axisControl.onChange(function (value) {
+        axisHelper.visible = value;
+        });
+
+        function render() {
+          stats.update();
+          trackballControls.update();
+
+          step += controls.bouncingSpeed;
+
+          sphereLightMesh.position.z = 100*(Math.sin(step/3));
+          sphereLightMesh.position.x = 80+(200*(Math.cos(step/3)));
+          sphereLightMesh.position.y = 100;
+
+          directionalLight.position = sphereLightMesh.position;
+          requestAnimationFrame(render);
+          renderer.render(scene,camera);
+        }
+
+        function initStats() {
+          var stats = new Stats();
+          stats.setMode(0);
+          $('body').append(stats.domElement);
+          return stats;
+        }
+      });
+    </script>  
+ </body>
+</html>
