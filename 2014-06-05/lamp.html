@@ -39,25 +39,27 @@
 
         //var silverColor = "#C0C0C0";
         var color = "#1C39BB";
-        var silverColor = "#4169E1";
+        var lampColor = "#1C39BB";
         //var lightGrey = "#808080";
         var lightGrey = "#FFCC00";
         
         //var planeColor = "#D2D2D2";
         var planeColor = "#808080";
+        var sphereColor = "#99CBFF"
         var yellow = "FFFF66";
+        var lightColor = "#FFFACD"
 
         function mkJoint (radius, height) {
           var joint = new THREE.Object3D();
-          var sphereGeometry = new THREE.SphereGeometry(radius, 20, 20);
-          var sphereMaterial = new THREE.MeshPhongMaterial({color: planeColor, shininess: 3, shading: THREE.FlatShading, metal : true});
+          var sphereGeometry = new THREE.SphereGeometry(radius, 32, 32);
+          var sphereMaterial = new THREE.MeshPhongMaterial({color: sphereColor, shininess: 3, shading: THREE.FlatShading, metal : true});
           var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
           sphere.position.set(0, 0, 0);
           sphere.castShadow = true;
           joint.add(sphere);
 
-          var cylinderGeometry = new THREE.CylinderGeometry(radius, radius, height, 20, 20, false);
-          var cylinderMaterial = new THREE.MeshPhongMaterial({color: silverColor, shininess: 3, shading: THREE.FlatShading, metal: true});
+          var cylinderGeometry = new THREE.CylinderGeometry(radius, radius, height, 32, 32, false);
+          var cylinderMaterial = new THREE.MeshPhongMaterial({color: lampColor, shininess: 3, shading: THREE.FlatShading, metal: true});
           var cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
           cylinder.position.set(0, height / 2 + radius, 0);
           cylinder.castShadow = true;
@@ -93,7 +95,7 @@
         var baseRadius = 1.5;
         var baseHeight = 0.3;
         var baseGeometry = new THREE.CylinderGeometry( baseRadius, baseRadius, baseHeight, 32 );
-        var baseMaterial = new THREE.MeshPhongMaterial( {color: silverColor, specular: 0x009900, shininess: 30, shading: THREE.FlatShading, metal: true} );
+        var baseMaterial = new THREE.MeshPhongMaterial( {color: lampColor, shininess: 30, shading: THREE.FlatShading, metal: true} );
         var base = new THREE.Mesh( baseGeometry, baseMaterial );
         base.rotation.x = Math.PI/2;
         base.position.set(0,0,(baseHeight/2));
@@ -116,17 +118,17 @@
         //arm1.position.set(0,0,armRadius+baseHeight);
 
         //var lightPoint = new THREE.Object3D();
-        var sphereGeometry = new THREE.SphereGeometry(armRadius, 8, 8);
-        var sphereMaterial = new THREE.MeshPhongMaterial({color: planeColor, shininess: 3, shading: THREE.FlatShading, metal: true});
+        var sphereGeometry = new THREE.SphereGeometry(armRadius, 32, 32);
+        var sphereMaterial = new THREE.MeshPhongMaterial({color: sphereColor, shininess: 3, shading: THREE.FlatShading, metal: true});
         var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
         sphere.position.set(0, 0, 0);
         sphere.castShadow = true;
         arm2.hook.add(sphere);
 
         var semiSphereRadius = 1.5;
-        var semiSphereGeometry = new THREE.SphereGeometry(semiSphereRadius, 20, 20, 0, 2*Math.PI, Math.PI/2,Math.PI);
+        var semiSphereGeometry = new THREE.SphereGeometry(semiSphereRadius, 32, 32, 0, 2*Math.PI, Math.PI/2,Math.PI);
         //var semiSphereMaterial = new THREE.MeshPhongMaterial({color: silverColor, shininess: 10, metal: true});
-        var semiSphereMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: silverColor, shininess: 30, shading: THREE.FlatShading, metal:true});
+        var semiSphereMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: lampColor, shininess: 30, shading: THREE.FlatShading, metal:true});
         semiSphereMaterial.side = THREE.DoubleSide;
         var semiSphere = new THREE.Mesh(semiSphereGeometry, semiSphereMaterial);
         semiSphere.position.set(0, semiSphereRadius+armRadius, 0);
@@ -142,14 +144,14 @@
         var bulbHeight = 0.5;
         var bulbCylinderGeometry = new THREE.CylinderGeometry(bulbRadiusMax, bulbRadiusMin, bulbHeight, 32 );
         //var bulbCylinderMaterial = new THREE.MeshPhongMaterial({color: yellow, shininess: 10, metal: true});
-        var bulbCylinderMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: 0xffff00, specular: 0x009900, shininess: 30, shading: THREE.FlatShading});
+        var bulbCylinderMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: lightColor, shininess: 30, shading: THREE.FlatShading});
         var bulbCylinder = new THREE.Mesh(bulbCylinderGeometry, bulbCylinderMaterial);
         bulbCylinder.castShadow = true;
         bulb.add(bulbCylinder);
 
-        var bulbSphereGeometry = new THREE.SphereGeometry(bulbRadiusMax, 20, 20, 0, 2*Math.PI, Math.PI*3/2,Math.PI/2);
+        var bulbSphereGeometry = new THREE.SphereGeometry(bulbRadiusMax, 32, 32, 0, 2*Math.PI, Math.PI*3/2,Math.PI/2);
         //var bulbSphereMaterial = new THREE.MeshPhongMaterial({color: yellow, shininess: 10, metal: true, transparent: true});
-        var bulbSphereMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: 0xffff00, specular: 0x009900, shininess: 30, shading: THREE.FlatShading});
+        var bulbSphereMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: lightColor, shininess: 30, shading: THREE.FlatShading});
         bulbSphere = new THREE.Mesh(bulbSphereGeometry, bulbSphereMaterial);
         bulbSphere.position.set(0,bulbHeight/2,0);
         bulbSphere.castShadow = true;
@@ -184,7 +186,7 @@
           steps: 1
         };
 
-        var textMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: silverColor, shininess: 100, metal: true});
+        var textMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: lampColor, shininess: 100, metal: true});
         var textGeometry = new THREE.TextGeometry("GRAPHICS", options);
         var text = new THREE.Mesh(textGeometry, textMaterial);
         text.position.set(6,6.5,0.1)
@@ -215,7 +217,8 @@
         directionalLight.target = lamp;
         scene.add(directionalLight);
 
-        var spotLight = new THREE.SpotLight(0xffffff);
+        var pointColor = "#ffffff";
+        var spotLight = new THREE.SpotLight(pointColor);
         spotLight.angle = Math.PI/9;
         spotLight.target = point;
         spotLight.intensity = 1;
@@ -229,92 +232,92 @@
 
         //creation of some animation
         var lampTween14d = new TWEEN.Tween(lamp.scale)
-          .to({ x: 1, y: 1, z: 1 }, 300)
+          .to({ x: 1, y: 1, z: 1 }, 600)
           .easing(TWEEN.Easing.Bounce.Out);
           //.chain(lampTween13);
 
         var lampTween14c = new TWEEN.Tween(lamp.rotation)
-          .to({ z : 0 }, 300)
+          .to({ z : 0 }, 600)
           .easing(TWEEN.Easing.Bounce.Out);
           //.chain(lampTween13);
 
         var lampTween14b = new TWEEN.Tween(text.scale)
-          .to({ x: 1, y: 1, z: 1 }, 300)
+          .to({ x: 1, y: 1, z: 1 }, 600)
           .easing(TWEEN.Easing.Bounce.Out);
           //.chain(lampTween13);
 
         var lampTween14a = new TWEEN.Tween(lamp.position)
-          .to({ x: 0, y: 0, z: 0 }, 300)
+          .to({ x: 0, y: 0, z: 0 }, 600)
           .easing(TWEEN.Easing.Bounce.Out);
           //.chain(lampTween13);
 
         var lampTween13b = new TWEEN.Tween(text.scale)
-          .to({ x: 0.00001, y: 0.00001, z: 0.00001 }, 300)
+          .to({ x: 0.00001, y: 0.00001, z: 0.00001 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween14a,lampTween14b,lampTween14c,lampTween14d);
 
         var lampTween13a = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 0.5, z: 0 }, 300)
+          .to({ x: 5.5, y: 0.5, z: 0 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween14a,lampTween14b,lampTween14c,lampTween14d);
 
         var lampTween12 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 1, z: 1.15 }, 300)
+          .to({ x: 5.5, y: 1, z: 1.15 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween13a,lampTween13b);
 
         var lampTween11 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 1, z: 3.5 }, 300)
+          .to({ x: 5.5, y: 1, z: 3.5 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween12);
 
         var lampTween10b = new TWEEN.Tween(text.scale)
-          .to({ x: 0.5, y: 0.5, z: 0.5 }, 300)
+          .to({ x: 0.5, y: 0.5, z: 0.5 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween11);
 
         var lampTween10a = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 0.5, z: 1.15 }, 300)
+          .to({ x: 5.5, y: 0.5, z: 1.15 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween11);
 
         var lampTween9 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 0.5, z: 3.5 }, 300)
+          .to({ x: 5.5, y: 0.5, z: 3.5 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween10a,lampTween10b);
 
         var lampTween8 = new TWEEN.Tween(lamp.rotation)
-          .to({ z: -Math.PI}, 300)
+          .to({ z: -Math.PI}, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween9);
 
         var lampTween7 = new TWEEN.Tween(lamp.position)
-          .to({ x: 4, y: 0.5, z: 3.5 }, 300)
+          .to({ x: 4, y: 0.5, z: 3.5 }, 600)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween8);
 
         var lampTween6 = new TWEEN.Tween(lamp.position)
-          .to({ x: 2, y: 0.5, z: 3.5 }, 1000)
+          .to({ x: 2, y: 0.5, z: 3.5 }, 2000)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween7);
 
         var lampTween5 = new TWEEN.Tween(lamp.scale)
-          .to({x: 2, y: 2, z: 2}, 1000)
+          .to({x: 2, y: 2, z: 2}, 2000)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween6);
 
         var lampTween4 = new TWEEN.Tween(arm2.rotation)
-          .to({ x: Math.PI/2.5}, 1000)
+          .to({ x: Math.PI/2.5}, 2000)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween5);
 
         var lampTween3 = new TWEEN.Tween(lamp.position)
-          .to({ x: 1, y: 0, z: 0 }, 1000)
+          .to({ x: 1, y: 0, z: 0 }, 2000)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween4);
 
         var lampTween2 = new TWEEN.Tween(lamp.position)
-          .to({ x: 1, y: -6, z: 0 }, 1000)
+          .to({ x: 1, y: -6, z: 0 }, 2000)
           .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween3);
 
@@ -357,6 +360,10 @@
           this.castShadow = true;
           this.startAnimation = false;
           this.lightOn = true;
+          this.pointColor = pointColor;
+          this.intensity = 1;
+          this.exponent = 30;
+          this.angle = Math.PI/9;
         }
 
         var gui = new dat.GUI();
@@ -389,7 +396,7 @@
         angleFolder.add(controls, 'epsilon', 0, Math.PI/2).onChange(function (e) {
             sphere.rotation.x = e;
         });
-        var lampAnimation = gui.addFolder("lampAnimation")
+        var lampAnimation = gui.addFolder("lampAnimation");
         lampAnimation.add(controls, 'castShadow').onChange(function (e) {
           directionalLight.castShadow = e;
         });
@@ -409,13 +416,31 @@
             bulb.remove(spotLight);
             semiSphere.remove( light );
             spotLight.castShadow = false;
+            spotLight.shadowCameraNear = 100;
             text.castShadow = false;
           } else {
             bulb.add(spotLight);
             semiSphere.add( light );
             spotLight.castShadow = true;
             text.castShadow = true;
+            spotLight.shadowCameraNear = 2;
           }
+        });
+        var lightSettings = gui.addFolder("lightSettings");
+        lightSettings.addColor(controls, 'pointColor').onChange(function (e) {
+          spotLight.color = new THREE.Color(e);
+        });
+
+        lightSettings.add(controls, 'angle', 0, Math.PI / 2).onChange(function (e) {
+          spotLight.angle = e;
+        });
+
+        lightSettings.add(controls, 'intensity', 0, 5).onChange(function (e) {
+          spotLight.intensity = e;
+        });
+
+        lightSettings.add(controls, 'exponent', 0, 100).onChange(function (e) {
+          spotLight.exponent = e;
         });
         
 
