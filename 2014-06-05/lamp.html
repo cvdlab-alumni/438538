@@ -224,93 +224,114 @@
         var axisHelper = new THREE.AxisHelper(3);
         axisHelper.visible = false;
         scene.add(axisHelper);
-
         
 
-        var lampTween15e = new TWEEN.Tween(text.position)
-          .to({ x: 6, y: 6.5, z: 0.1 }, 600)
+        var lampTween22a = new TWEEN.Tween(lamp.rotation)
+          .to({ x : 0 ,z : 0 }, 1000)
           .easing(TWEEN.Easing.Bounce.Out);
 
-        //creation of some animation
-        var lampTween15d = new TWEEN.Tween(lamp.scale)
-          .to({ x: 1, y: 1, z: 1 }, 600)
+        var lampTween22b = new TWEEN.Tween(arm2.rotation)
+          .to({ x : 1.0 }, 1000)
           .easing(TWEEN.Easing.Bounce.Out);
 
-        var lampTween15c = new TWEEN.Tween(lamp.rotation)
-          .to({ z : 0 }, 600)
-          .easing(TWEEN.Easing.Bounce.Out);
+        var lampTween21 = new TWEEN.Tween(lamp.rotation)
+          .to({ x: Math.PI*4/9 }, 1000)
+          .chain(lampTween22a,lampTween22b);
 
-        var lampTween15b = new TWEEN.Tween(text.scale)
-          .to({ x: 1, y: 1, z: 1 }, 600)
-          .easing(TWEEN.Easing.Bounce.Out);
+        var lampTween20 = new TWEEN.Tween(lamp.rotation)
+          .to({ x: Math.PI*4/9 }, 1000)
+          .chain(lampTween21);
 
-        var lampTween15a = new TWEEN.Tween(lamp.position)
-          .to({ x: 0, y: 0, z: 0 }, 600)
-          .easing(TWEEN.Easing.Bounce.Out);
+        var lampTween19a = new TWEEN.Tween(text.position)
+          .to({ x: 6, y: 6.5, z: 0.1 }, 1000)
+          .chain(lampTween20);
 
-        var lampTween14 = new TWEEN.Tween(text.position)
-          .to({ x: 6, y: 0.000001, z: 0.000001 }, 2000)
+        var lampTween19b = new TWEEN.Tween(text.scale)
+          .to({ x: 1, y: 1, z: 1 }, 1000)
+          .chain(lampTween20);
+
+        var lampTween18 = new TWEEN.Tween(lamp.position)
+          .to({ x: [4.5,3,1.5,0], y: [0,0,0,0], z: [9,12,9,0] }, 800)
+          .interpolation(TWEEN.Interpolation.Bezier);
+
+        var lampTween17x = new TWEEN.Tween(text.position)
+          .to({ x: 6, y: 0.000001, z: 0.000001 }, 800)
+          .chain(lampTween19a,lampTween19b);
+
+        var lampTween17 = new TWEEN.Tween(lamp.position)
+          .to({ x: 5.5, y: 0.5, z: 0 }, 500)
+          .chain(lampTween18);
+
+        var lampTween16 = new TWEEN.Tween(lamp.position)
+          .to({ x: 5.5, y: 0.5, z: 4 }, 500)
+          .chain(lampTween17,lampTween17x);
+
+        var lampTween15 = new TWEEN.Tween(lamp.position)
+          .to({ x: 5.5, y: 0.5, z: 0 }, 500)
+          .chain(lampTween16);
+
+        var lampTween14 = new TWEEN.Tween(lamp.position)
+          .to({ x: 5.5, y: 0.5, z: 4 }, 500)
+          .chain(lampTween15);
+
+        var lampTween13 = new TWEEN.Tween(text.position)
+          .to({ x: 6, y: 0.000001, z: 0.000001 }, 500)
           .easing(TWEEN.Easing.Bounce.Out)
-          .chain(lampTween15a,lampTween15b,lampTween15c,lampTween15d,lampTween15e);
+          .chain(lampTween14);
 
-        var lampTween13c = new TWEEN.Tween(text.position)
+        var lampTween12c = new TWEEN.Tween(text.position)
           .to({ x: 6, y: 0.000001, z: 0.000001 }, 300)
           .easing(TWEEN.Easing.Bounce.Out)
-          .chain(lampTween14);
+          .chain(lampTween13);
 
-        var lampTween13b = new TWEEN.Tween(text.scale)
+        var lampTween12b = new TWEEN.Tween(text.scale)
           .to({ x: 0.000001, y: 0.000001, z: 0.000001 }, 300)
-          .chain(lampTween14);
+          .chain(lampTween13);
 
-        var lampTween13a = new TWEEN.Tween(lamp.position)
+        var lampTween12a = new TWEEN.Tween(lamp.position)
           .to({ x: 5.5, y: 0.5, z: 0 }, 300)
-          .chain(lampTween14);
-
-        var lampTween12 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 1, z: 1.15 }, 600)
-          .chain(lampTween13a,lampTween13b,lampTween13c);
+          .chain(lampTween13);
 
         var lampTween11 = new TWEEN.Tween(lamp.position)
+          .to({ x: 5.5, y: 1, z: 1.15 }, 600)
+          .chain(lampTween12a,lampTween12b,lampTween12c);
+
+        var lampTween10 = new TWEEN.Tween(lamp.position)
           .to({ x: 5.5, y: 1, z: 3.5 }, 600)
-          .chain(lampTween12);
+          .chain(lampTween11);
 
-        var lampTween10c = new TWEEN.Tween(text.position)
+        var lampTween9c = new TWEEN.Tween(text.position)
           .to({ x: 6, y: 3.25, z: 0.1 }, 600)
-          .chain(lampTween11);
+          .chain(lampTween10);
 
-        var lampTween10b = new TWEEN.Tween(text.scale)
+        var lampTween9b = new TWEEN.Tween(text.scale)
           .to({ x: 0.5, y: 0.5, z: 0.5 }, 600)
-          .chain(lampTween11);
+          .chain(lampTween10);
 
-        var lampTween10a = new TWEEN.Tween(lamp.position)
+        var lampTween9a = new TWEEN.Tween(lamp.position)
           .to({ x: 5.5, y: 0.5, z: 1.15 }, 600)
-          .chain(lampTween11);
+          .chain(lampTween10);
 
-        var lampTween9 = new TWEEN.Tween(lamp.position)
+        var lampTween8 = new TWEEN.Tween(lamp.position)
           .to({ x: 5.5, y: 0.5, z: 3.5 }, 600)
-          .chain(lampTween10a,lampTween10b,lampTween10c);
+          .chain(lampTween9a,lampTween9b,lampTween9c);
 
-        var lampTween8 = new TWEEN.Tween(lamp.rotation)
+        var lampTween7 = new TWEEN.Tween(lamp.rotation)
           .to({ z: -Math.PI}, 600)
-          .chain(lampTween9);
+          .chain(lampTween8);
 
-        var lampTween7a = new TWEEN.Tween(lamp.position)
+        var lampTween6a = new TWEEN.Tween(lamp.position)
           .to({ x: [3,5.5], y: [0.5,0.5], z: [4,3.5] }, 2000)
           .interpolation(TWEEN.Interpolation.Bezier)
-          .chain(lampTween8);
+          .chain(lampTween7);
 
-        var lampTween7b = new TWEEN.Tween(spotLight)
+        var lampTween6b = new TWEEN.Tween(spotLight)
           .to({ intensity : 1, angle : Math.PI/9 }, 2000)
-          .chain(lampTween8);
-
-        var lampTween6 = new TWEEN.Tween(lamp.scale)
-          .to({x: 2, y: 2, z: 2}, 500)
-          .easing(TWEEN.Easing.Bounce.Out)
-          .chain(lampTween7a,lampTween7b);
+          .chain(lampTween7);
 
         var lampTween5 = new TWEEN.Tween(spotLight)
           .to({ intensity : 1.5, angle : Math.PI/4 }, 800)
-          .chain(lampTween6);
+          .chain(lampTween6a,lampTween6b);
 
         var lampTween4 = new TWEEN.Tween(arm2.rotation)
           .to({ x: Math.PI/2.5}, 2000)
@@ -349,16 +370,17 @@
           this.intensity = 1;
           this.exponent = 30;
           this.angle = Math.PI/9;
+          this.trackballControls = true;
         }
 
         var gui = new dat.GUI();
         var axis_control = gui.add(controls, 'showAxisHelper');
         var lampFolder = gui.addFolder("lampPosition");
-        lampFolder.add(controls, "lampX", -10.5, 4).onChange(function (e) {
+        lampFolder.add(controls, "lampX", -8, 4).onChange(function (e) {
             lamp.position.x = e;
         });
 
-        lampFolder.add(controls, "lampY", -13.5, 13.5).onChange(function (e) {
+        lampFolder.add(controls, "lampY", -11, 11).onChange(function (e) {
             lamp.position.y = e;
         });
         var angleFolder = gui.addFolder("angles");
@@ -417,6 +439,8 @@
         lightSettings.add(controls, 'exponent', 0, 100).onChange(function (e) {
           spotLight.exponent = e;
         });
+
+        gui.add(controls,'trackballControls');
         
 
         axis_control.onChange(function (value) {
@@ -429,7 +453,9 @@
 
         function render() {
           stats.update();
-          trackballControls.update();
+          if (controls.trackballControls) {
+            trackballControls.update();
+          }
           TWEEN.update();
 
           requestAnimationFrame(render);
