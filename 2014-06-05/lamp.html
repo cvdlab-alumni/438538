@@ -260,37 +260,35 @@
           .to({ x: 1, y: 1, z: 1 }, 1000);
 
         var lampTween18 = new TWEEN.Tween(lamp.position)
-          .to({ x: [4.5,3,1.5,0], y: [0,0,0,0], z: [9,12,9,0] }, 900)
+          .to({ x: [4.5,3,1.5,0], y: [0,0,0,0], z: [9,12,9,0] }, 1000)
           .interpolation(TWEEN.Interpolation.Bezier);
 
         var lampTween17x = new TWEEN.Tween(text.position)
-          .to({ x: 6, y: 0.000001, z: 0.000001 }, 730)
+          .to({ x: 6, y: 0.000001, z: 0.000001 }, 1100)
           .chain(lampTween19a,lampTween19b,lampTween19x);
 
         var lampTween17 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 0.5, z: 0 }, 220)
+          .to({ x: 5.5, y: 0.5, z: 0 }, 400)
           .chain(lampTween18);
 
         var lampTween16 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 0.5, z: 4 }, 220)
+          .to({ x: 5.5, y: 0.5, z: 4 }, 400)
           .chain(lampTween17,lampTween17x);
 
         var lampTween15 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 0.5, z: 0 }, 500)
+          .to({ x: 5.5, y: 0.5, z: 0 }, 400)
           .chain(lampTween16);
 
         var lampTween14 = new TWEEN.Tween(lamp.position)
-          .to({ x: 5.5, y: 0.5, z: 4 }, 500)
+          .to({ x: 5.5, y: 0.5, z: 4 }, 400)
           .chain(lampTween15);
 
         var lampTween13 = new TWEEN.Tween(text.position)
           .to({ x: 6, y: 0.000001, z: 0.000001 }, 500)
-          .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween14);
 
         var lampTween12c = new TWEEN.Tween(text.position)
           .to({ x: 6, y: 0.000001, z: 0.000001 }, 300)
-          .easing(TWEEN.Easing.Bounce.Out)
           .chain(lampTween13);
 
         var lampTween12b = new TWEEN.Tween(text.scale)
@@ -390,6 +388,7 @@
 
         var gui = new dat.GUI();
         var axis_control = gui.add(controls, 'showAxisHelper');
+        gui.add(controls,'trackballControls');
         var lampFolder = gui.addFolder("lampPosition");
         lampFolder.add(controls, "lampX", -8, 4).onChange(function (e) {
             lamp.position.x = e;
@@ -398,7 +397,7 @@
         lampFolder.add(controls, "lampY", -11, 11).onChange(function (e) {
             lamp.position.y = e;
         });
-        var angleFolder = gui.addFolder("angles");
+        var angleFolder = gui.addFolder("lampRotation");
         angleFolder.add(controls, 'alpha', 0, 2*Math.PI).onChange(function (e) {
             arm1.sphere.rotation.y = e;
         });
@@ -423,8 +422,6 @@
           directionalLight.castShadow = e;
         });
 
-        lampAnimation.add(controls, 'startAnimation');
-
         lampAnimation.add(controls, 'lightOn').onChange(function (e) {
           if (!e) {
             spotLight.intensity = 0;
@@ -438,6 +435,9 @@
             light.shadowDarkness = 0.5;
           }
         });
+
+        lampAnimation.add(controls, 'startAnimation');
+        
         var lightSettings = gui.addFolder("lightSettings");
         lightSettings.addColor(controls, 'pointColor').onChange(function (e) {
           spotLight.color = new THREE.Color(e);
@@ -455,7 +455,7 @@
           spotLight.exponent = e;
         });
 
-        gui.add(controls,'trackballControls');
+        
         
 
         axis_control.onChange(function (value) {
