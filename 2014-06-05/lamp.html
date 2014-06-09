@@ -254,10 +254,12 @@
           .chain(lampTween20a,lampTween20b);
 
         var lampTween19a = new TWEEN.Tween(text.position)
-          .to({ x: 6, y: 6.5, z: 0.1 }, 1000);
+          .to({ x: 6, y: 6.5, z: 0.1 }, 1000)
+          .delay(100);
 
         var lampTween19b = new TWEEN.Tween(text.scale)
-          .to({ x: 1, y: 1, z: 1 }, 1000);
+          .to({ x: 1, y: 1, z: 1 }, 1000)
+          .delay(100);
 
         var lampTween18 = new TWEEN.Tween(lamp.position)
           .to({ x: [4.5,3,1.5,0], y: [0,0,0,0], z: [9,12,9,0] }, 1300)
