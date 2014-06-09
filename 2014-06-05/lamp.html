@@ -260,7 +260,7 @@
           .to({ x: 1, y: 1, z: 1 }, 1000);
 
         var lampTween18 = new TWEEN.Tween(lamp.position)
-          .to({ x: [4.5,3,1.5,0], y: [0,0,0,0], z: [9,12,9,0] }, 1000)
+          .to({ x: [4.5,3,1.5,0], y: [0,0,0,0], z: [9,12,9,0] }, 1300)
           .interpolation(TWEEN.Interpolation.Bezier);
 
         var lampTween17x = new TWEEN.Tween(text.position)
@@ -308,11 +308,13 @@
           .chain(lampTween11);
 
         var lampTween9c = new TWEEN.Tween(text.position)
-          .to({ x: 6, y: 3.25, z: 0.1 }, 600)
+          .to({ x: 6, y: 3.25, z: 0.1 }, 450)
+          .delay(300)
           .chain(lampTween10);
 
         var lampTween9b = new TWEEN.Tween(text.scale)
-          .to({ x: 0.5, y: 0.5, z: 0.5 }, 600)
+          .to({ x: 0.5, y: 0.5, z: 0.5 }, 450)
+          .delay(300)
           .chain(lampTween10);
 
         var lampTween9a = new TWEEN.Tween(lamp.position)
