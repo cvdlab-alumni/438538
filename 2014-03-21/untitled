@@ -1,0 +1,36 @@
+<html lang = "it">
+	<head>
+		<meta charset = "utf-8"/>
+		<title>Homework 1</title>
+	</head>
+	<body>
+		<section>
+			<header>
+				<h1>Informazioni</h1>
+				<ul>
+					<li>Studente : Daniele Rossi</li>
+					<li>Matricola : 438538</li>
+					<li>Monumento : Casa del fascio</li>
+					<li>Descrizione : La ex Casa del Fascio si trova a Como in piazza del Popolo 4 (ex piazza Impero) ed è uno dei più interessanti edifici del razionalismo italiano. L'edificio ha la forma di un grande parallelepipedo formato da superfici di geometria pura: su un lato di 33.20 metri, per un'altezza dimezzata</li>
+				</ul>
+				<h2>Link utili:</h2>
+				<ul>
+					<li><a href="sito1">http://it.wikipedia.org/wiki/Casa_del_Fascio_(Como)</a></li>
+				</ul>
+				<h3>Esercizi</h3>
+				<ul>
+					<li><a href="python/exercise1.py">Esercizio1</a></li>
+					<li><a href="python/exercise2.py">Esercizio2</a></li>
+					<li><a href="python/exercise3.py">Esercizio3</a></li>
+				</ul>
+				<h4>Immagini del lavoro:</h4>
+				<ul>
+					<li><img src="images/img1.png"></li>
+					<li><img src="images/img2.png"></li>
+					<li><img src="images/img3.png"></li>
+					<li><img src="images/img4.png"></li>
+					<li><img src="images/img5.png"></li>
+				</ul>
+			</header>
+		</section>
+	</body>
