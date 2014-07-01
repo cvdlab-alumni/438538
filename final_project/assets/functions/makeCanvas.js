@@ -22,7 +22,7 @@ var drawText = function (title,content) {
 	ctx2d.fillRect(0, 0, 200, 200);
 	ctx2d.fillStyle = "rgb(0,0,0)";
 	ctx2d.strokeStyle = "rgb(0,0,0)";
-	ctx2d.font="50px Helvetica";
+	ctx2d.font="20px Helvetica";
 	ctx2d.strokeText(title, 4, 45);
 	ctx2d.font="12px Helvetica";
 	var distance = 65;
