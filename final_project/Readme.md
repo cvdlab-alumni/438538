@@ -23,11 +23,7 @@ Daniele Rossi - 438538
 * VIDEO-TEXTURE to create tv screen;
 * AUDIO for disco-music;
 * PARTICLE to create clouds and stars;
-* OBJ-IMPORT to make interiors
+* OBJ-IMPORT to make interiors;
 * STATIC-TEXTURE for windows, doors, wardrobe, walls;
 * POINTERLOCK+ PICKINGOBJECT to visit home and interact with objects.
-
-======
-
-You can also find the project here : [danrossi.ilbello.com/progetto/index.html](http://www.danrossi.ilbello.com/progetto/index.html)
 
