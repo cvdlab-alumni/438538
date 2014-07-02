@@ -162,7 +162,6 @@ function createObj() {
         mesh.scale.set(0.002,0.002,0.0015);
         mesh.position.set(4.1,7.3,0.3);
         mesh.rotation.z = -Math.PI/2;
-        //mesh.rotation.z = Math.PI;
         objects.add(mesh);
     });
     var loaderOb2 = new THREE.OBJLoader();
@@ -208,121 +207,5 @@ function createObj() {
     frame1.position.set(9,10.5,2.3);
     frame1.scale.set(0.16,0.16,0.16);
     objects.add(frame1);
-    // //create a paper
-    // var paperGeometry = new THREE.PlaneGeometry( 0.3, 0.4);
-    // var paper = createMesh(paperGeometry,"textureScrittura.jpg",1,1);
-    // paper.rotation.z = Math.PI/2;
-    // objects.add(paper);
-    // paper.position.set(5.1,5.8,1.12);
 	return objects;
-}
-
-function makeLamp() {
-	var color = "#1C39BB";
-    var lampColor = "#1C39BB";
-    var lightGrey = "#FFCC00";
-    var planeColor = "#ABCDEF";
-    var sphereColor = "#99CBFF";
-    var yellow = "#FFFF66";
-    var lightColor = "#FFFACD";
-	// creation of an object lamp
-    var lamp = new THREE.Object3D();
-    var lamp_x = 0;
-    var lamp_y = 0;
-
-    // creation of the base of the lamp
-    var baseRadius = 1.5;
-    var baseHeight = 0.3;
-    var baseGeometry = new THREE.CylinderGeometry( baseRadius, baseRadius, baseHeight, 32 );
-    var baseMaterial = new THREE.MeshPhongMaterial( {color: lampColor, shininess: 30, shading: THREE.FlatShading, metal: true} );
-    var base = new THREE.Mesh( baseGeometry, baseMaterial );
-    base.rotation.x = Math.PI/2;
-    base.position.set(0,0,(baseHeight/2));
-    base.castShadow = true;
-    lamp.add(base);
-
-    // creation of the first arm of the lamp
-    var armHeight = 3;
-    var armRadius = 0.4;
-    var arm1 = mkJoint(armRadius, armHeight,sphereColor,lampColor);
-    arm1.position.set(0,armRadius+baseHeight/2,0);
-    arm1.sphere.rotation.y = Math.PI/2;
-    arm1.castShadow = true;
-    base.add(arm1);
-
-    var arm2 = mkJoint(armRadius, armHeight,sphereColor,lampColor);
-    arm1.hook.add(arm2);
-    arm2.rotation.x = Math.PI/3;
-
-    var sphereGeometry = new THREE.SphereGeometry(armRadius, 32, 32);
-    var sphereMaterial = new THREE.MeshPhongMaterial({color: sphereColor, shininess: 3, shading: THREE.FlatShading, metal: true});
-    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    sphere.position.set(0, 0, 0);
-    sphere.castShadow = true;
-    arm2.hook.add(sphere);
-
-    var semiSphereRadius = 1.5;
-    var semiSphereGeometry = new THREE.SphereGeometry(semiSphereRadius, 48, 48, 0, 2*Math.PI, Math.PI/2,Math.PI);
-    var semiSphereMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: lampColor, shininess: 30, shading: THREE.FlatShading, metal:true});
-    semiSphereMaterial.side = THREE.DoubleSide;
-    var semiSphere = new THREE.Mesh(semiSphereGeometry, semiSphereMaterial);
-    semiSphere.position.set(0, semiSphereRadius+armRadius, 0);
-    semiSphere.DoubleSide;
-    semiSphere.castShadow = true;
-    sphere.add(semiSphere);
-    sphere.rotation.x = Math.PI/2;
-
-    var bulb = new THREE.Object3D();
-    var bulbRadiusMin = .35;
-    var bulbRadiusMax = 0.5;
-    var bulbHeight = 0.5;
-    var bulbCylinderGeometry = new THREE.CylinderGeometry(bulbRadiusMax, bulbRadiusMin, bulbHeight, 32 );
-    var bulbCylinderMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: lightColor, shininess: 100, shading: THREE.FlatShading, opacity : 0.7, transparent : true});
-    var bulbCylinder = new THREE.Mesh(bulbCylinderGeometry, bulbCylinderMaterial);
-    bulb.add(bulbCylinder);
-
-    var bulbSphereGeometry = new THREE.SphereGeometry(bulbRadiusMax, 32, 32, 0, 2*Math.PI, Math.PI*3/2,Math.PI/2);
-    var bulbSphereMaterial = new THREE.MeshPhongMaterial({ambient: 0xffffff, color: lightColor, shininess: 100, shading: THREE.FlatShading, opacity : 0.7, transparent : true});
-    bulbSphere = new THREE.Mesh(bulbSphereGeometry, bulbSphereMaterial);
-    bulbSphere.position.set(0,bulbHeight/2,0);
-    bulb.add(bulbSphere);
-    bulb.position.set(0, -semiSphereRadius/2, 0);
-
-    semiSphere.add(bulb);
-
-    var point = new THREE.Object3D();
-    
-    bulb.add(point);
-    point.position.set(0,2,0);
-
-    lamp.castShadow = true;
-    var pointColor = "#ffffff";
-    var spotLight = new THREE.SpotLight(pointColor);
-    spotLight.angle = Math.PI/9;
-    spotLight.target = point;
-    spotLight.intensity = 1;
-    spotLight.distance = 12;
-    spotLight.castShadow = true;
-    spotLight.shadowCameraNear=2;
-    bulb.add(spotLight);
-
-    var light = new THREE.PointLight( 0xffffff, 2, 3 );
-    semiSphere.add( light );
-
-    semiSphere.on = false;
-    semiSphere.interact = function() {
-    	if(!semiSphere.on) {
-            spotLight.intensity = 1;
-            light.intensity = 2;
-            semiSphere.on = true;
-        }
-        else {
-            spotLight.intensity = 0;
-            light.intensity = 0;
-            semiSphere.on = false;
-        }
-    }
-    toIntersect.push(semiSphere);
-    
-    return lamp;
 }
