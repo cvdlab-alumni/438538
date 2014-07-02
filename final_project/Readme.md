@@ -4,6 +4,8 @@
 Daniele Rossi - 438538
 --------------------------
 
+ Click [here](http://danrossi5.github.io/) to see the project
+
 **Code organization :**
 
 * [index](index.html) creates some instance variables and calls the function [init](assets/functions/Init.js).
@@ -23,7 +25,7 @@ Daniele Rossi - 438538
 * STATIC-TEXTURE for windows, doors, wardrobe, walls;
 * **CUBE CAMERA** to make mirror;
 * **SKYBOX** to make day and night background;
-* **POINTERLOCK+ PICKINGOBJECT** to visit home and interact with objects;
+* **POINTERLOCK + PICKING-OBJECT** to visit home and interact with objects;
 * **AUDIO** for disco-music;
 * **PARTICLE** to create clouds and stars;
 * **FADING AUDIO** to set volume of tv with distance.
