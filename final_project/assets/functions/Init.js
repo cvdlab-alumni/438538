@@ -39,9 +39,6 @@ function init() {
 	rayMove.ray.direction.set(0, 1, 0);
 	var projector = new THREE.Projector();
 	rayPointer = new THREE.Raycaster();
-	var axisHelper = new THREE.AxisHelper(3);
-    axisHelper.visible = true;
-    scene.add(axisHelper);
 
     var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/textures/general/grass.png' );
 	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
