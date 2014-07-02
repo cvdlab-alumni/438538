@@ -1,3 +1,4 @@
+// variabile per vedere se il pointerlock è attivo
 var havePointerLock = 'pointerLockElement' in document || 'mozPointerLockElement' in document || 'webkitPointerLockElement' in document;
 
 if (havePointerLock) {
@@ -11,6 +12,7 @@ if (havePointerLock) {
       camera.position.set(0,0,0);
       camera.up = new THREE.Vector3(0, 1, 0);
       controls.getObject().position.set(0, 0, 0);
+      // attiva il mirino
       $("#pointer").fadeIn(1000);
     } else {
       location.reload();
@@ -53,8 +55,11 @@ if (havePointerLock) {
 
   function computeFPControls() {
     controls.isOnObject(false);
+    // metto l'origine del ray nel centro dello schermo
     rayMove.ray.origin.copy(controls.getObject().position);
+    // la mia altezza da terra?
     rayMove.ray.origin.y -= 4;
+    // in questo modo se salto su un oggetto ci rimango sopra
     var intersections = rayMove.intersectObjects(objects);
     if (intersections.length > 0) {
       var distance = intersections[0].distance;

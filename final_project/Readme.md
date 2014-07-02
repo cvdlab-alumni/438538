@@ -18,12 +18,13 @@ Daniele Rossi - 438538
 
 * TWEEN to make animations of doors, windows, wardrobe, water, light movement;
 * DYNAMIC TEXTURE to write in a paper;
-* CUBE CAMERA to make mirror;
-* SKYBOX to make day and night background;
 * VIDEO-TEXTURE to create tv screen;
-* AUDIO for disco-music;
-* PARTICLE to create clouds and stars;
 * OBJ-IMPORT to make interiors;
 * STATIC-TEXTURE for windows, doors, wardrobe, walls;
-* POINTERLOCK+ PICKINGOBJECT to visit home and interact with objects.
+* **CUBE CAMERA** to make mirror;
+* **SKYBOX** to make day and night background;
+* **POINTERLOCK+ PICKINGOBJECT** to visit home and interact with objects;
+* **AUDIO** for disco-music;
+* **PARTICLE** to create clouds and stars;
+* **FADING AUDIO** to set volume of tv with distance.
 
