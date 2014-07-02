@@ -2,7 +2,6 @@
 =======================================
 
 Daniele Rossi - 438538
-
 --------------------------
 
  Click [here](http://danrossi5.github.io/) to see the project
